@@ -1,21 +1,25 @@
-import React from "react";
+import React, { Component } from "react";
 
 import IssLocation from "./components/IssLocation";
 import UserLocation from "./components/UserLocation";
 import IssHumans from "./components/IssHumans";
 import IssData from "./components/IssData";
 import Globe from "./components/Globe";
+import Grid from "./components/Grid";
 
 import "./App.css";
-// var TODO = require("../todo");
-
-// import { pullData } from "./data";
 
 import { fetchingData } from "./data";
+// import { planet } from "./libraries/planetaryjs";
 
-// import { dataObj } from "./data";
+// componentDidMount () {
+//   const script = document.createElement("script");
 
-// import { setStateTest } from "./data";
+//   script.src = "https://use.typekit.net/foobar.js";
+//   script.async = true;
+
+//   document.body.appendChild(script);
+// }
 
 class App extends React.Component {
   state = {
@@ -45,7 +49,11 @@ class App extends React.Component {
     const something = await res;
 
     this.setState({
-      userLocation: something.userLat,
+      userLatitude: something.userLat,
+      userLongitude: something.userLon,
+      userCity: something.userCity,
+      userCountry: something.userCountry,
+
       issLon: something.issLon,
       issLat: something.issLat,
       issLocality: something.issLocality,
@@ -62,32 +70,47 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="wrapper">
-        <IssLocation
-          issLon={this.state.issLon}
-          issLat={this.state.issLat}
-          issLocality={this.state.issLocality}
-          issLocaltime={this.state.issLocalTime}
-        />
+      <div>
+        <div className="wrapper">
+          <div className="marks">
+            <div className="mark mark1" />
+            <div className="mark mark2" />
+            <div className="mark mark3" />
+            <div className="mark mark4" />
+          </div>
+          <div className="logo">
+            <h1>Issionary</h1>
+          </div>
+          <IssLocation
+            issLon={this.state.issLon}
+            issLat={this.state.issLat}
+            issLocality={this.state.issLocality}
+            issLocaltime={this.state.issLocalTime}
+          />
 
-        <UserLocation
-          location={this.state.userLocation}
-          nextPass={this.state.issPass}
-          nextVisiblePass={this.state.issVisiblePass}
-        />
+          <UserLocation
+            city={this.state.userCity}
+            country={this.state.userCountry}
+            nextPass={this.state.issPass}
+            nextVisiblePass={this.state.issVisiblePass}
+          />
 
-        {/* <Globe /> */}
+          {/* <Globe /> */}
 
-        <IssData
-          issAlt={this.state.issAlt}
-          issVel={this.state.issVel}
-          issVis={this.state.issVis}
-        />
+          <IssData
+            issAlt={this.state.issAlt}
+            issVel={this.state.issVel}
+            issVis={this.state.issVis}
+          />
 
-        <IssHumans
-          namesHumans={this.state.namesHumans}
-          numberHumans={this.state.numberHumans}
-        />
+          <IssHumans
+            namesHumans={this.state.namesHumans}
+            numberHumans={this.state.numberHumans}
+          />
+
+          <Globe />
+        </div>
+        <Grid />
       </div>
     );
   }

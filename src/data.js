@@ -1,5 +1,6 @@
 import React from "react";
 import { Component } from "react";
+import { isArray } from "util";
 
 function convertUnixToDate(timestamp) {
   var a = new Date(timestamp * 1000);
@@ -54,11 +55,19 @@ let n2yo_API =
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchingData() {
-  let geoLocData = await fetch(geoLoc_API)
+  let geoLocData = await fetch(
+    "http://api.ipapi.com/api/check?access_key=a7a6cc1e543eeee6e81e7e0fb1be82c3"
+  )
     .then(res => res.json())
     .then(json => {
+      console.log(json);
       dataObj.userLat = json.lat;
+
       dataObj.userLon = json.lon;
+
+      dataObj.userCity = json.city;
+      dataObj.userCountry = json.country_name;
+
       return json;
     });
 
@@ -67,8 +76,8 @@ export async function fetchingData() {
     .then(json => {
       dataObj.issLat = json.latitude;
       dataObj.issLon = json.longitude;
-      dataObj.issAlt = json.altitude;
-      dataObj.issVel = json.velocity;
+      dataObj.issAlt = Math.round(json.altitude);
+      dataObj.issVel = Math.round(json.velocity);
       dataObj.issVis = json.visibility;
       console.log(json);
       return json;
@@ -114,7 +123,7 @@ export async function fetchingData() {
     .then(json => {
       if (json.formatted) {
         dataObj.issLocalTime = json.formatted;
-        console.log("iss timezone availabloe");
+        console.log("iss timezone available");
       } else {
         dataObj.issLocalTime = "not available";
         console.log("iss timezone NOT availabloe");
@@ -163,7 +172,8 @@ export async function fetchingData() {
 
   console.log(dataObj);
   ////////////////////////////////////////////
-
+  dataObj.issLat = dataObj.issLat.toString().substring(0, 6);
+  dataObj.issLon = dataObj.issLon.toString().substring(0, 6);
   return dataObj;
 } /////////////////////////////////////////////////////////////////////////
 
