@@ -38,7 +38,7 @@ body {
 }
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(12, minmax(75px, 1fr));
+  grid-template-columns: repeat(12, minmax(25px, 1fr));
   grid-template-rows: 12% 20rem 45rem 7%;
   overflow: visible;
   max-height: 100vh;
@@ -246,12 +246,118 @@ body {
 }
 
 canvas {
-  width: 100%;
-  height: 100%;
+  width: 65rem;
+  height: 65rem;
   cursor: move;
+  overflow: visible;
 
   /* transform: translateY(-70%); */
 }
+
+@media only screen and (max-width: 1200px) {
+  html {
+    font-size: 55%;
+  }
+  canvas {
+    width: 45rem;
+    height: 45rem;
+    cursor: move;
+  }
+}
+
+@media only screen and (max-width: 880px) {
+  html {
+    font-size: 45%;
+  }
+  canvas {
+    /* width: 45rem;
+    height: 45rem;
+    cursor: move; */
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  html {
+    font-size: 40%;
+  }
+  canvas {
+    /* width: 45rem;
+    height: 45rem;
+    cursor: move; */
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  html {
+    font-size: 35%;
+  }
+  canvas {
+    width: 35rem;
+    height: 35rem;
+    cursor: move;
+    transform: translateY(30%);
+  }
+
+  .panel__issLocation {
+    grid-row: 2/3;
+    grid-column: 1/7;
+    margin-left: 10px;
+  }
+
+  .panel__userLocation {
+    grid-row: 2/3;
+    grid-column: 7/13;
+    margin-right: 10px;
+  }
+
+  .panel__issData {
+    grid-row: 3/4;
+    grid-column: 1/5;
+    margin-left: 10px;
+  }
+
+  .panel__humans {
+    grid-row: 3/4;
+    grid-column: 9/13;
+    margin-right: 10px;
+  }
+}
+
+@media only screen and (max-width: 560px) {
+  html {
+    font-size: 30%;
+  }
+  canvas {
+    width: 25rem;
+    height: 25rem;
+    cursor: move;
+    transform: translateY(30%);
+  }
+
+  .wrapper {
+    display: grid;
+
+    grid-template-rows: 10% 20rem 45rem 3%;
+    overflow: visible;
+    max-height: 100vh;
+  }
+}
+
+/* @media only screen and (min-width: 1400px) {
+  canvas {
+    width: 140%;
+    height: 140%;
+    cursor: move;
+    transform: translateX(-13%);
+  }
+}
+
+
+
+/* width: 140%;
+height: 140%;
+cursor: move;
+transform: translateX(-13%); */
 
 /* #rotatingGlobe {
   transform: translateY(-70%);

@@ -32,20 +32,20 @@ function convertUnixToDate(timestamp) {
 ////////////////////////////////////////////////////////////////////////////////////////////
 let dataObj = {};
 
-let geoLoc_API = "http://ip-api.com/json";
+let geoLoc_API = "https://ip-api.com/json";
 let whereIss_API = "https://api.wheretheiss.at/v1/satellites/25544";
 
 let bing_KEY =
   "Ajk-SypzWGM2sVY2PU3xav-JeTa710oDOGa9GYGLhutvVHE6Vs_VYwscQSbYdknH";
 let bing_API =
-  "http://dev.virtualearth.net/REST/v1/Locations/47.64054,-122.12934?includeEntityTypes=countryRegion,Address,Neighborhood,PopulatedPlace&key=" +
+  "https://dev.virtualearth.net/REST/v1/Locations/47.64054,-122.12934?includeEntityTypes=countryRegion,Address,Neighborhood,PopulatedPlace&key=" +
   bing_KEY;
 
 let timeZone_API =
-  "http://api.timezonedb.com/v2.1/get-time-zone?key=DY44KDARYL4Q&format=json&by=position&";
+  "https://api.timezonedb.com/v2.1/get-time-zone?key=DY44KDARYL4Q&format=json&by=position&";
 let timeZoneKEY = "DY44KDARYL4Q";
 
-let openNotify_API = "http://api.open-notify.org/astros.json";
+// let openNotify_API = "http://api.open-notify.org/astros.json";
 
 let n2yo_KEY = "9STWLA-H3MFDR-BHBC4H-3X0W";
 
@@ -55,11 +55,10 @@ let n2yo_API =
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 export async function fetchingData() {
-  let geoLocData = await fetch(
-    "http://api.ipapi.com/api/check?access_key=a7a6cc1e543eeee6e81e7e0fb1be82c3"
-  )
+  let geoLocData = await fetch("https://ipapi.co/json/")
     .then(res => res.json())
     .then(json => {
+      console.log(json);
       console.log(json);
       dataObj.userLat = json.lat;
 
@@ -84,7 +83,7 @@ export async function fetchingData() {
     });
 
   let bingData = await fetch(
-    "http://dev.virtualearth.net/REST/v1/Locations/" +
+    "https://dev.virtualearth.net/REST/v1/Locations/" +
       whereIssData.latitude +
       "," +
       whereIssData.longitude +
@@ -159,15 +158,6 @@ export async function fetchingData() {
     .then(res => res.json())
     .then(json => {
       dataObj.issVisiblePass = convertUnixToDate(json.passes[0].startUTC);
-    });
-
-  let openNotifyResponse = await fetch(openNotify_API)
-    .then(res => res.json())
-    .then(json => {
-      dataObj.numberHumans = json.number;
-      dataObj.namesHumans = json.people.map(name => name.name);
-
-      console.log(json);
     });
 
   console.log(dataObj);

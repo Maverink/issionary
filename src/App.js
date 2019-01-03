@@ -62,9 +62,9 @@ class App extends React.Component {
       issLocalTime: something.issLocalTime,
       issAlt: something.issAlt,
       issVel: something.issVel,
-      issVis: something.issVis,
-      numberHumans: something.numberHumans,
-      namesHumans: something.namesHumans
+      issVis: something.issVis
+      // numberHumans: something.numberHumans,
+      // namesHumans: something.namesHumans
     });
   }
 
@@ -103,10 +103,7 @@ class App extends React.Component {
             issVis={this.state.issVis}
           />
 
-          <IssHumans
-            namesHumans={this.state.namesHumans}
-            numberHumans={this.state.numberHumans}
-          />
+          <IssHumans />
 
           <Globe />
         </div>
